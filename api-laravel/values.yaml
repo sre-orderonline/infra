@@ -1,0 +1,29 @@
+replicaCount: 3
+
+image:
+  repository: asia-southeast1-docker.pkg.dev/rf-asl-0/orderonline-prd-prod-aft-docker/api-laravel
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "dev-1"
+
+
+service:
+  type: ClusterIP
+  port: 8181
+
+ingress:
+  enabled: false
+
+resources: 
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
